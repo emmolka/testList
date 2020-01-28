@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
+
 import ListItem from '../../components/list-item';
 import axios from 'axios';
-import { StyledFlatList, StyledSafeAreaView, MainWrapper } from './styles';
+import {
+	StyledFlatList,
+	StyledSafeAreaView,
+	MainWrapper,
+	StyledTouchableOpacity,
+	StyledRow,
+	StyledText
+} from './styles';
 
-const fetchItems = async (setItems, setIsLoading, setError) => {
+const fetchList = async (setItems, setIsLoading, setError) => {
 	try {
 		setIsLoading(true);
 		const { data } = await axios.get('https://picsum.photos/v2/list');
@@ -16,13 +24,22 @@ const fetchItems = async (setItems, setIsLoading, setError) => {
 	}
 };
 
-const ItemsList = () => {
+const ListItems = () => {
 	const [ items, setItems ] = useState([]);
 	const [ isLoading, setIsLoading ] = useState(false);
+
 	useEffect(() => {
-		fetchItems(setItems, setIsLoading);
+		fetchList(setItems, setIsLoading);
 	}, []);
 
+	const sortItemsById = () => {
+		const sortedList = [ ...items.sort((a, b) => a.id - b.id) ];
+		setItems(sortedList);
+	};
+	const sortItemsByAuthor = () => {
+		const sortedList = [ ...items.sort((a, b) => a.author.localeCompare(b.author)) ];
+		setItems(sortedList);
+	};
 	return (
 		<MainWrapper>
 			<StyledSafeAreaView>
@@ -39,7 +56,19 @@ const ItemsList = () => {
 					// keyExtractor={(item) => item.item.id}
 				/>
 			</StyledSafeAreaView>
+			<StyledRow>
+				<StyledTouchableOpacity onPress={() => fetchList(setItems, setIsLoading)}>
+					<StyledText>Refresh list</StyledText>
+				</StyledTouchableOpacity>
+				<StyledTouchableOpacity onPress={() => sortItemsByAuthor()}>
+					<StyledText>Sort by author</StyledText>
+				</StyledTouchableOpacity>
+				<StyledTouchableOpacity onPress={() => sortItemsById()}>
+					<StyledText>Sort by id</StyledText>
+				</StyledTouchableOpacity>
+			</StyledRow>
 		</MainWrapper>
 	);
 };
-export default ItemsList;
+
+export default ListItems;
