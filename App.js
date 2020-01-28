@@ -1,6 +1,6 @@
 import React from 'react';
-import ListItem from './src/containers/list-container';
+import ItemsList from './src/containers/items-list';
 
 export default function App() {
-	return <ListItem />;
+	return <ItemsList />;
 }
