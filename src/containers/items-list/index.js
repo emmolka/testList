@@ -4,6 +4,7 @@ import ListItem from '../../components/list-item';
 import axios from 'axios';
 import { StyledSafeAreaView, MainWrapper, StyledRow, StyledActivityIndicator } from './styles';
 import Button from '../../components/button';
+
 const fetchList = async (setItems, setIsLoading) => {
 	try {
 		setIsLoading(true);
@@ -30,6 +31,8 @@ const ListItems = () => {
 	};
 
 	const sortItemsByAuthor = () => {
+		//sorting by first and last name
+
 		const sortedList = [ ...items.sort((a, b) => a.author.localeCompare(b.author)) ];
 		const finalList = [
 			...sortedList.sort((a, b) => {
