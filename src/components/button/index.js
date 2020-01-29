@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyledTouchableOpacity, StyledText } from './styles';
+import { TouchableOpacity } from 'react-native';
+import { StyledText } from './styles';
 
 const ListItem = ({ title, onPress }) => (
-	<StyledTouchableOpacity onPress={onPress}>
+	<TouchableOpacity onPress={onPress}>
 		<StyledText>{title}</StyledText>
-	</StyledTouchableOpacity>
+	</TouchableOpacity>
 );
 export default ListItem;
