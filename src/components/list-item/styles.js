@@ -1,20 +1,22 @@
 import styled from 'styled-components';
+
 export const ItemWrapper = styled.View`
 	flex-direction: row;
-	margin: 10px 5px;
+	margin: 5px;
+	padding: 3px;
 	border: 1px solid black;
 	border-radius: 5px;
 `;
 
 export const ItemImage = styled.Image`
-	height: 50px;
-	width: 50px;
 	flex: 1;
+	border-radius: 10px;
 `;
 
-export const ItemContentWrapper = styled.View`
-	flex: 5;
+export const ItemInfoWrapper = styled.View`
+	flex: 4;
 	max-width: 80%;
+	margin: 5px;
 `;
 
 export const ItemSignAndNumber = styled.View`
@@ -27,11 +29,13 @@ export const ItemNumber = styled.Text`
 	align-self: flex-start;
 	overflow: hidden;
 	color: white;
-	padding: 5px;
+	padding-top: 5px;
 	text-align: center;
-	font-size: 12px;
+	font-size: 10px;
 	border: 1px solid #0377fc;
-	border-radius: 10px;
+	border-radius: 12.5px;
+	width: 25px;
+	height: 25px;
 `;
 
 export const ItemAuthor = styled.Text`
@@ -40,7 +44,7 @@ export const ItemAuthor = styled.Text`
 `;
 
 export const ItemUrl = styled.Text`
-	font-size: 16px;
+	font-size: 12px;
 	color: black;
-	flex: 1;
+	margin: 5px 0;
 `;

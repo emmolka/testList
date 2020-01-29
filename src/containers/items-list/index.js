@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react';
-
+import { Linking } from 'react-native';
 import ListItem from '../../components/list-item';
 import axios from 'axios';
-import {
-	StyledFlatList,
-	StyledSafeAreaView,
-	MainWrapper,
-	StyledTouchableOpacity,
-	StyledRow,
-	StyledText
-} from './styles';
-
+import { StyledFlatList, StyledSafeAreaView, MainWrapper, StyledRow } from './styles';
+import Button from '../../components/button';
 const fetchList = async (setItems, setIsLoading, setError) => {
 	try {
 		setIsLoading(true);
 		const { data } = await axios.get('https://picsum.photos/v2/list');
-		console.log(data);
 		setItems(data);
 	} catch (e) {
 		console.log(e.message);
@@ -45,27 +37,22 @@ const ListItems = () => {
 			<StyledSafeAreaView>
 				<StyledFlatList
 					data={items}
-					renderItem={(item) => (
+					renderItem={({ item: { download_url, url, id, author } }) => (
 						<ListItem
-							download_url={item.item.download_url}
-							url={item.item.url}
-							id={item.item.id}
-							author={item.item.author}
+							download_url={download_url}
+							url={url}
+							id={id}
+							author={author}
+							onPress={() => Linking.openURL(`${download_url}`)}
 						/>
 					)}
 					// keyExtractor={(item) => item.item.id}
 				/>
 			</StyledSafeAreaView>
 			<StyledRow>
-				<StyledTouchableOpacity onPress={() => fetchList(setItems, setIsLoading)}>
-					<StyledText>Refresh list</StyledText>
-				</StyledTouchableOpacity>
-				<StyledTouchableOpacity onPress={() => sortItemsByAuthor()}>
-					<StyledText>Sort by author</StyledText>
-				</StyledTouchableOpacity>
-				<StyledTouchableOpacity onPress={() => sortItemsById()}>
-					<StyledText>Sort by id</StyledText>
-				</StyledTouchableOpacity>
+				<Button onPress={() => fetchList(setItems, setIsLoading)} title={'Refresh list'} />
+				<Button onPress={() => sortItemsByAuthor()} title={'Sort by author'} />
+				<Button onPress={() => sortItemsById()} title={'Sort by id'} />
 			</StyledRow>
 		</MainWrapper>
 	);

@@ -1,25 +1,17 @@
 import React from 'react';
-import {
-	ItemWrapper,
-	ItemImage,
-	ItemContentWrapper,
-	ItemSignAndNumber,
-	ItemUrl,
-	ItemNumber,
-	ItemAuthor
-} from './styles';
+import { ItemWrapper, ItemImage, ItemInfoWrapper, ItemSignAndNumber, ItemUrl, ItemNumber, ItemAuthor } from './styles';
 
-const ListItem = ({ url, id, author, download_url }) => {
+const ListItem = ({ url, id, author, download_url, onPress }) => {
 	return (
 		<ItemWrapper>
 			<ItemImage source={{ uri: download_url }} />
-			<ItemContentWrapper>
+			<ItemInfoWrapper>
 				<ItemSignAndNumber>
 					<ItemAuthor>{author}</ItemAuthor>
 					<ItemNumber>{id}</ItemNumber>
 				</ItemSignAndNumber>
-				<ItemUrl>{url}</ItemUrl>
-			</ItemContentWrapper>
+				<ItemUrl onPress={onPress}>Url: {url}</ItemUrl>
+			</ItemInfoWrapper>
 		</ItemWrapper>
 	);
 };
